@@ -250,7 +250,7 @@ https://github.com/rails/rails/compare/byroot:idempotent-counter-caches...master
 
 ## Line Highlighting in Repos
 
-Either adding `#L52` to the end of a code file URL or simply clicking the lin number will highlight that line number.
+Either adding `#L52` to the end of a code file URL or simply clicking the line number will highlight that line number.
 
 It also works with ranges, e.g. `#L53-L60`, to select ranges, hold `shift` and click two lines:
 

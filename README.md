@@ -11,6 +11,10 @@ A collection of cool hidden and not so hidden features of Git and GitHub. This c
   - [Adjust Tab Space](#adjust-tab-space)
   - [Commit History by Author](#commit-history-by-author)
   - [Cloning a Repository](#cloning-a-repository)
+<<<<<<< HEAD
+=======
+  - [Compare all Branches to Another Branch](#compare-all-branches-to-another-branch)
+>>>>>>> upstream/master
   - [Comparing Branches](#comparing-branches)
   - [Compare Branches across Forked Repositories](#compare-branches-across-forked-repositories)
   - [Gists](#gists)
@@ -86,9 +90,15 @@ https://github.com/rails/rails/commits/master?author=dhh
 ```
 
 ![DHH commit history](http://i.imgur.com/mDWwuaY.png)
+<<<<<<< HEAD
 
 [*Read more about the differences between commits views.*](https://help.github.com/articles/differences-between-commit-views)
 
+=======
+
+[*Read more about the differences between commits views.*](https://help.github.com/articles/differences-between-commit-views)
+
+>>>>>>> upstream/master
 ### Cloning a Repository
 When cloning a repository the `.git` can be left off the end.
 
@@ -97,6 +107,137 @@ $ git clone https://github.com/tiimgreen/github-cheat-sheet
 ```
 
 [*Read more about the Git `clone` command.*](http://git-scm.com/docs/git-clone)
+
+<<<<<<< HEAD
+### Comparing Branches
+To use GitHub to compare branches, change the URL to look like this:
+
+```
+https://github.com/user/repo/compare/{range}
+```
+
+Where `{range} = master...4-1-stable`
+
+For example:
+
+```
+https://github.com/rails/rails/compare/master...4-1-stable
+```
+
+![Rails branch compare example](http://i.imgur.com/0Z52X5Y.png)
+
+`{range}` can be changed to things like:
+
+```
+https://github.com/rails/rails/compare/master@{1.day.ago}...master
+https://github.com/rails/rails/compare/master@{2014-10-04}...master
+```
+
+*Dates are in the format `YYYY-DD-MM`*
+
+![Another compare example](http://i.imgur.com/5dtzESz.png)
+
+...which allows you to see the difference on the master branch up a set time ago or a specified date.
+
+[*Read more about comparing commits across time.*](https://help.github.com/articles/comparing-commits-across-time)
+
+### Compare Branches across Forked Repositories
+To use GitHub to compare branches across forked repositories, change the URL to look like this:
+
+```
+https://github.com/user/repo/compare/{foreign-user}:{branch}...{own-branch}
+```
+
+For example:
+
+```
+https://github.com/rails/rails/compare/byroot:master...master
+```
+
+![Forked branch compare](http://i.imgur.com/Q1W6qcB.png)
+
+### Gists
+[Gists](https://gist.github.com/) are an easy way to work with small bits of code without creating a fully fledged repository.
+
+![Gist](http://i.imgur.com/VkKI1LC.png?1)
+
+Add `.pibb` to the end of any Gist URL ([like this](https://gist.github.com/tiimgreen/10545817.pibb)) in order to get the *HTML only* version suitable for embedding in any other site.
+
+Gists can be treated as a full repository so they can be cloned like any other:
+
+```bash
+$ git clone https://gist.github.com/tiimgreen/10545817
+```
+
+![Gists](http://i.imgur.com/dULZXXo.png)
+
+[*Read more about creating gists.*](https://help.github.com/articles/creating-gists)
+
+### Git.io
+[Git.io](http://git.io) is a simple URL shortener for GitHub.
+
+![Git.io](http://i.imgur.com/6JUfbcG.png?1)
+
+You can also use it via pure HTTP using Curl:
+
+```bash
+$ curl -i http://git.io -F "url=https://github.com/..."
+HTTP/1.1 201 Created
+Location: http://git.io/abc123
+
+$ curl -i http://git.io/abc123
+HTTP/1.1 302 Found
+Location: https://github.com/...
+```
+
+[*Read more about Git.io.*](https://github.com/blog/985-git-io-github-url-shortener)
+
+### Keyboard Shortcuts
+When on a repository page, keyboard shortcuts allow you to navigate easily.
+
+ - Pressing `t` will bring up a file explorer.
+ - Pressing `w` will bring up the branch selector.
+ - Pressing `s` will select the Command Bar.
+ - Pressing `l` will edit labels on existing Issues.
+ - Pressing `y` **when looking at a file** (e.g. `https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.md`) will change your URL to one which, in effect, freezes the page you are looking at. If this code changes, you will still be able to see what you saw at that current time.
+
+To see all of the shortcuts for the current page press `?`:
+
+![Keyboard shortcuts](http://i.imgur.com/y5ZfNEm.png)
+
+[*Read more about using the Command Bar.*](https://help.github.com/articles/using-the-command-bar)
+
+### Line Highlighting in Repositories
+Either adding `#L52` to the end of a code file URL or simply clicking the line number will highlight that line number.
+
+=======
+### Compare all Branches to Another Branch
+
+If you go to the repo's [Branches](https://github.com/tiimgreen/github-cheat-sheet/branches) page, next to the Commits button:
+
+```
+https://github.com/{user}/{repo}/branches
+```
+
+... you would see a list of all branches which are not merged into the main branch.
+
+From here you can access the compare page or delete a branch with a click of a button.
+
+![Compare branches not merged into master in jquery/jquery repo - https://github.com/jquery/jquery/branches](http://i.imgur.com/gKWPe8a.png)
+
+However, often you need to compare branches to a branch other than `master` (e.g. `development`). To do this, append the URL with the name of the branch like so:
+
+```
+https://github.com/{user}/{repo}/branches/{branch}
+```
+
+![Compare branches not merged into `1.x-master` in jquery/jquery repo - https://github.com/jquery/jquery/branches/1.x-master](http://i.imgur.com/jpc6Urb.png)
+
+To see the merged branches, append `?merged=1` to the URL.
+
+![Compare branches merged in to `1.x-master` in jquery/jquery repo - https://github.com/jquery/jquery/branches/1.x-master?merged=1](http://i.imgur.com/KmYyCVh.png)
+
+This view allows you to delete branches easily from the page, without using the command-line.
 
 ### Comparing Branches
 To use GitHub to compare branches, change the URL to look like this:
@@ -199,6 +340,7 @@ To see all of the shortcuts for the current page press `?`:
 ### Line Highlighting in Repositories
 Either adding `#L52` to the end of a code file URL or simply clicking the line number will highlight that line number.
 
+>>>>>>> upstream/master
 It also works with ranges, e.g. `#L53-L60`, to select ranges, hold `shift` and click two lines:
 
 ```
@@ -267,6 +409,7 @@ Emojis can added to on Pull Requests, Issues, commit messages, Markdown files, e
 Would produce:
 
 :smile:
+<<<<<<< HEAD
 
 The full list of supported Emojis on GitHub can be found at [emoji-cheat-sheet.com](http://www.emoji-cheat-sheet.com/) or [scotch-io/All-Github-Emoji-Icons](https://github.com/scotch-io/All-Github-Emoji-Icons).
 
@@ -281,6 +424,22 @@ The top 5 used Ejmojis on GitHub are:
 ### Images/GIFs
 Images and GIFs can be added to comments, READMEs etc.:
 
+=======
+
+The full list of supported Emojis on GitHub can be found at [emoji-cheat-sheet.com](http://www.emoji-cheat-sheet.com/) or [scotch-io/All-Github-Emoji-Icons](https://github.com/scotch-io/All-Github-Emoji-Icons).
+
+The top 5 used Ejmojis on GitHub are:
+
+1. :shipit: - `:shipit:`
+2. :sparkles: - `:sparkles:`
+3. :-1: - `:-1:`
+4. :+1: - `:+1:`
+5. :clap: - `:clap:`
+
+### Images/GIFs
+Images and GIFs can be added to comments, READMEs etc.:
+
+>>>>>>> upstream/master
 ```
 ![Alt Text](http://www.sheawong.com/wp-content/uploads/2013/08/keephatin.gif)
 ```
@@ -551,6 +710,7 @@ and checkout as:
 ```bash
 $ git checkout origin/pr/42
 ```
+<<<<<<< HEAD
 
 and even fetch them automatically, if you add corresponding lines in your .git/config:
 
@@ -579,6 +739,36 @@ $ git commit -m "Big-ass commit" --allow-empty
 
 Some use-cases for this (that make sense), include:
 
+=======
+
+and even fetch them automatically, if you add corresponding lines in your .git/config:
+
+
+```
+[remote "origin"]
+    fetch = +refs/heads/*:refs/remotes/origin/*
+    url = git@github.com:tiimgreen/github-cheat-sheet.git
+```
+
+```
+[remote "origin"]
+    fetch = +refs/heads/*:refs/remotes/origin/*
+    url = git@github.com:tiimgreen/github-cheat-sheet.git
+    fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+```
+
+[*Read more about checking out pull requests locally.*](https://help.github.com/articles/checking-out-pull-requests-locally)
+
+### Empty Commits :trollface:
+Commits can be pushed with no code changes by adding `--allow-empty`:
+
+```bash
+$ git commit -m "Big-ass commit" --allow-empty
+```
+
+Some use-cases for this (that make sense), include:
+
+>>>>>>> upstream/master
  - Annotating the start of a new bulk of work or a new feature.
  - Documenting when you make changes to the project that aren't code related.
  - Communicating with people using your repository.
@@ -615,6 +805,7 @@ $ git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %C
 ```
 
 Produces:
+<<<<<<< HEAD
 
 ![git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative](http://i.imgur.com/EARRQyJ.png)
 
@@ -622,6 +813,15 @@ Credit to [Palesz](http://stackoverflow.com/users/88355/palesz)
 
 *This can be aliased using the instructions found [here](https://github.com/tiimgreen/github-cheat-sheet#aliases).*
 
+=======
+
+![git log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative](http://i.imgur.com/EARRQyJ.png)
+
+Credit to [Palesz](http://stackoverflow.com/users/88355/palesz)
+
+*This can be aliased using the instructions found [here](https://github.com/tiimgreen/github-cheat-sheet#aliases).*
+
+>>>>>>> upstream/master
 [*Read more about the Git `log` command.*](http://git-scm.com/docs/git-log)
 
 ### Git Query
@@ -658,20 +858,35 @@ $ git branch --no-merged
 Will give you a list of branches that have not been merged into your current branch.
 
 [*Read more about the Git `branch` command.*](http://git-scm.com/docs/git-branch)
+<<<<<<< HEAD
 
 ### Web Server for Browsing Local Repositories
 Use the Git `instaweb` command to instantly browse your working repository in `gitweb`. This command is a simple script to set up `gitweb` and a web server for browsing the local repository.
 
+=======
+
+### Web Server for Browsing Local Repositories
+Use the Git `instaweb` command to instantly browse your working repository in `gitweb`. This command is a simple script to set up `gitweb` and a web server for browsing the local repository.
+
+>>>>>>> upstream/master
 ```bash
 $ git instaweb
 ```
 
 Opens:
+<<<<<<< HEAD
 
 ![Git instaweb](http://i.imgur.com/Dxekmqc.png)
 
 [*Read more about the Git `instaweb` command.*](http://git-scm.com/docs/git-instaweb)
 
+=======
+
+![Git instaweb](http://i.imgur.com/Dxekmqc.png)
+
+[*Read more about the Git `instaweb` command.*](http://git-scm.com/docs/git-instaweb)
+
+>>>>>>> upstream/master
 ### Git Configurations
 Your `.gitconfig` file contains all your Git configurations.
 
@@ -720,7 +935,11 @@ Some useful aliases include:
 | `git tags` | `git tag -l` | `git config --global alias.tags 'tag -l'` |
 | `git branches` | `git branch -a` | `git config --global alias.branches 'branch -a'` |
 | `git remotes` | `git remote -v` | `git config --global alias.remotes 'remote -v'` |
+<<<<<<< HEAD
 | `git lg` | `git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --` | `git config --global alias.lg 'log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --'` |
+=======
+| `git lg` | `git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --` | `git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"` |
+>>>>>>> upstream/master
 
 *Some Aliases are taken from [@mathiasbynens](https://github.com/mathiasbynens) dotfiles: https://github.com/mathiasbynens/dotfiles/blob/master/.gitconfig*
 

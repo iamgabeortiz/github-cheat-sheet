@@ -319,7 +319,11 @@ Github上使用最多的5个表情符号是：
 
 ![License](http://i.imgur.com/fTjQict.png)
 
+<<<<<<< HEAD
 这个技巧也使用于 `.gitignore` 文件。
+=======
+这个技巧也适用于 `.gitignore` 文件。
+>>>>>>> upstream/master
 
 [*进一步了解 open source licensing.*](https://help.github.com/articles/open-source-licensing)
 
@@ -704,7 +708,11 @@ $ git config --global alias.ac 'add -A . && commit'
 | `git tags` | `git tag -l` | `git config --global alias.tags 'tag -l'` |
 | `git branches` | `git branch -a` | `git config --global alias.branches 'branch -a'` |
 | `git remotes` | `git remote -v` | `git config --global alias.remotes 'remote -v'` |
+<<<<<<< HEAD
 | `git lg` | `git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --` | `git config --global alias.lg 'log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --'` |
+=======
+| `git lg` | `git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --` | `git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"` |
+>>>>>>> upstream/master
 
 #### 自动更正
 如果键入 `git comit` 你会看到如下输出：

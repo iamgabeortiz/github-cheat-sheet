@@ -2,6 +2,8 @@
 
 A collection of cool hidden and not so hidden features of Git and GitHub. This cheat sheet was inspired by [Zach Holman](https://github.com/holman)'s [Git and GitHub Secrets](http://www.confreaks.com/videos/1229-aloharuby2012-git-and-github-secrets) talk at Aloha Ruby Conference 2012 ([slides](https://speakerdeck.com/holman/git-and-github-secrets)) and his [More Git and GitHub Secrets](https://vimeo.com/72955426) talk at WDCNZ 2013 ([slides](https://speakerdeck.com/holman/more-git-and-github-secrets)).
 
+*Shortlink: [`http://git.io/sheet`](http://git.io/sheet)*
+
 *Read this in other languages: [English](README.md), [한국어](README.ko.md), [日本語](README.ja.md), [简体中文](README.zh-cn.md).*
 
 # 목록
@@ -347,7 +349,7 @@ puts table.to_s
 
 #### Embedding Images in GitHub Wiki
 
-이미지를 위키 페이지ㅇ넣는 방법은 여럿 있습니다. 위에 보이는 일반 마크다운 문법도 있지만, 이미지에 높이와 넓이를 지정할 수 있는 문법도 있습니다.
+이미지를 위키 페이지에넣는 방법은 여럿 있습니다. 위에 보이는 일반 마크다운 문법도 있지만, 이미지에 높이와 넓이를 지정할 수 있는 문법도 있습니다.
 
 ```markdown
 [[ http://www.sheawong.com/wp-content/uploads/2013/08/keephatin.gif | height = 100px ]]
@@ -386,21 +388,27 @@ puts table.to_s
 
 ```
 - [ ] Be awesome
-- [ ] Do stuff
+- [ ] Prepare dinner
+  - [ ] Research recipe
+  - [ ] Buy ingredients
+  - [ ] Cook recipe
 - [ ] Sleep
 ```
 
-![Task List](http://i.imgur.com/k2qZi56.png)
+![Task List](http://i.imgur.com/jJBXhsY.png)
 
 체크박스가 클릭 되면, 순수 마크다운에서 갱신이 이루어집니다.
 
 ```
 - [x] Be awesome
-- [x] Do stuff
+- [ ] Prepare dinner
+  - [x] Research recipe
+  - [x] Buy ingredients
+  - [ ] Cook recipe
 - [ ] Sleep
 ```
 
-[*테스크 리스트에 대해 더 읽어 보세요.*](https://github.com/blog/1375%0A-task-lists-in-gfm-issues-pulls-comments)
+[*테스크 리스트에 대해 더 읽어 보세요.*](https://help.github.com/articles/writing-on-github#task-lists)
 
 #### Task Lists in Markdown Documents
 이제 마크다운 문서에서 **읽기 전용** 체크리스트를 넣을 수 있습니다.
@@ -423,7 +431,7 @@ puts table.to_s
 
 ### Relative Links
 
-상대 경로 링크는 마크다운 파일이 내부 건탠츠로 링크될 때 추천합니다.
+상대 경로 링크는 마크다운 파일이 내부 컨텐츠로 링크될 때 추천합니다.
 
 ```markdown
 [Link to a header](#awesome-section)
@@ -615,31 +623,25 @@ $ git stripspace < README.md
 
 ### Checking out Pull Requests
 
-풀 리퀘스트를 체크아웃하려면, 다음 명령어로 가져올 수 있습니다.
+풀 리퀘스트는 깃허브 저장소에서 사용하는 특별한 브랜치로 여러 방법으로 로컬로
+가져 올수 있습니다.
+
+빠르게 `diff`나 `merge`를 하기위해 특정 풀 리퀘스트를 임시로 `FETCH_HEAD`로
+가져오려면 이렇게 합니다.
 
 ```bash
-$ git fetch origin '+refs/pull/*/head:refs/pull/*'
+$ git fetch origin refs/pull/[PR-Number]/head
 ```
 
-그리고 다음 명령을 사용해 풀 리퀘스트(예를 들어 42라면)를 체크아웃합니다.
-
-```bash
-$ git checkout refs/pull/42
-```
-
-아니면, 리모트 브랜치에서 가져올 수도 있습니다.
+모든 풀 리퀘스트 브랜치를 refspec에 의한 로컬 리모트 브랜치로 받을 수도
+있습니다.
 
 ```bash
 $ git fetch origin '+refs/pull/*/head:refs/remotes/origin/pr/*'
 ```
 
-그리고 체크아웃은 이렇게 합니다.
-
-```bash
-$ git checkout origin/pr/42
-```
-
-그리고 밑의 줄을 .git/config에 추가하면, 자동으로 가져오게도 할 수 있습니다.
+밑의 줄들을 저장소의 `.git/config`에 추가하여, 리모트의 풀 리퀘스트를 자동으로
+가져오게도 할 수 있습니다.
 
 ```
 [remote "origin"]
@@ -652,6 +654,13 @@ $ git checkout origin/pr/42
     fetch = +refs/heads/*:refs/remotes/origin/*
     url = git@github.com:tiimgreen/github-cheat-sheet.git
     fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+```
+
+포크 기반의 풀 리퀘스트 기여를 위해, 풀 리퀘스트의 리모트 브랜치를 `checkout`해
+로컬 브랜치를 만드는 것은 유용합니다.
+
+```bash
+$ git checkout pr/42 pr-42
 ```
 
 [*풀 리퀘스트를 로컬로 체크아웃 하는 방법에 대해 더 읽어 보세요.*](https://help.github.com/articles/checking-out-pull-requests-locally)
@@ -813,6 +822,8 @@ $ git config --global alias.ac 'add -A . && commit'
 =======
 | `git lg` | `git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --` | `git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"` |
 >>>>>>> upstream/master
+
+*일부 알리아스는 [@mathiasbynens](https://github.com/mathiasbynens)님의 dotfiles에서 가져왔습니다.(https://github.com/mathiasbynens/dotfiles/blob/master/.gitconfig)*
 
 #### Auto-correct
 

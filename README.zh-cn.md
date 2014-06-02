@@ -9,6 +9,7 @@
   - [调整Tab字符所代表的空格数](#%E8%B0%83%E6%95%B4tab%E5%AD%97%E7%AC%A6%E6%89%80%E4%BB%A3%E8%A1%A8%E7%9A%84%E7%A9%BA%E6%A0%BC%E6%95%B0)
   - [查看某个用户的Commit历史](#%E6%9F%A5%E7%9C%8B%E6%9F%90%E4%B8%AA%E7%94%A8%E6%88%B7%E7%9A%84commit%E5%8E%86%E5%8F%B2)
   - [克隆某个仓库](#%E5%85%8B%E9%9A%86%E6%9F%90%E4%B8%AA%E4%BB%93%E5%BA%93)
+  - [将某个分支与其他所有分支进行对比](#%E5%B0%86%E6%9F%90%E4%B8%AA%E5%88%86%E6%94%AF%E4%B8%8E%E5%85%B6%E4%BB%96%E6%89%80%E6%9C%89%E5%88%86%E6%94%AF%E8%BF%9B%E8%A1%8C%E5%AF%B9%E6%AF%94)
   - [比较分支](#%E6%AF%94%E8%BE%83%E5%88%86%E6%94%AF)
   - [比较不同派生库的分支](#%E6%AF%94%E8%BE%83%E4%B8%8D%E5%90%8C%E6%B4%BE%E7%94%9F%E5%BA%93%E7%9A%84%E5%88%86%E6%94%AF)
   - [Gists](#gists)
@@ -95,6 +96,33 @@ $ git clone https://github.com/tiimgreen/github-cheat-sheet
 ```
 
 [*更多对 Git `clone` 命令的介绍.*](http://git-scm.com/docs/git-clone)
+
+###将某个分支与其他所有分支进行对比
+
+当你点击某个仓库的分支（Branches）选项卡时
+
+```
+https://github.com/{user}/{repo}/branches
+```
+你会看到一个包含所有未合并的分支的列表。
+
+你可以在这里查看比较（Compare）页面或点击删除某个分支。
+
+![Compare branches not merged into master in jquery/jquery repo - https://github.com/jquery/jquery/branches](http://i.imgur.com/gKWPe8a.png)
+
+有的时候我们需要将多个分支与一个非主分支（master）进行对比，此时可以通过在URL后加入要比较的分支名来实现：
+
+```
+https://github.com/{user}/{repo}/branches/{branch}
+```
+
+![Compare branches not merged into `1.x-master` in jquery/jquery repo - https://github.com/jquery/jquery/branches/1.x-master](http://i.imgur.com/jpc6Urb.png)
+
+可以在URL后加上`?merged=1`来查看已经合并了的分支。
+
+![Compare branches merged in to `1.x-master` in jquery/jquery repo - https://github.com/jquery/jquery/branches/1.x-master?merged=1](http://i.imgur.com/KmYyCVh.png)
+
+你可以使用这个界面来替代命令行直接删除分支。
 
 ### 比较分支
 
@@ -332,21 +360,27 @@ Issues和Pull requests里可以添加复选框，语法如下（注意空白符�
 
 ```
 - [ ] Be awesome
-- [ ] Do stuff
+- [ ] Prepare dinner
+  - [ ] Research recipe
+  - [ ] Buy ingredients
+  - [ ] Cook recipe
 - [ ] Sleep
 ```
 
-![Task List](http://i.imgur.com/k2qZi56.png)
+![Task List](http://i.imgur.com/jJBXhsY.png)
 
 当项目被选中时，它对应的Markdown源码也被更新了：
 
 ```
 - [x] Be awesome
-- [x] Do stuff
+- [ ] Prepare dinner
+  - [x] Research recipe
+  - [x] Buy ingredients
+  - [ ] Cook recipe
 - [ ] Sleep
 ```
 
-[*进一步了解任务列表.*](https://github.com/blog/1375%0A-task-lists-in-gfm-issues-pulls-comments)
+[*进一步了解任务列表.*](https://help.github.com/articles/writing-on-github#task-lists)
 
 ### 相对链接
 Markdown文件里链接到内部内容时推荐使用相对链接。
@@ -517,32 +551,21 @@ $ git stripspace < README.md
 [*进一步了解 Git `stripspace` 命令.*](http://git-scm.com/docs/git-stripspace)
 
 ### 检出Pull Requests
-如果想检出pull requests到本地，可以先用下面的fetch命令：
+Pull Request是一种GitHub上可以通过以下多种方式在本地被检索的特别分支：
+
+检索某个分支并临时储存在本地的`FETCH_HEAD`中以便快速查看更改(diff)以及合并(merge)：
 
 ```bash
-$ git fetch origin '+refs/pull/*/head:refs/pull/*'
+$ git fetch origin refs/pull/[PR-Number]/head
 ```
 
-然后用checkout命令检查想要的Pull Request（比如42）
-
-```bash
-$ git checkout refs/pull/42
-```
-
-你也可以把它们当作远程分支来fetch：
+通过refspec获取所有的Pull Request为本地分支：
 
 ```bash
 $ git fetch origin '+refs/pull/*/head:refs/remotes/origin/pr/*'
 ```
 
-然后这样检出：
-
-```bash
-$ git checkout origin/pr/42
-```
-
-或者干脆在你的.git/config文件里添加如下内容，这样就可以自动获取它们了。
-
+或在仓库的`.git/config`中加入下列设置来自动获取远程仓库中的Pull Request
 ```
 [remote "origin"]
     fetch = +refs/heads/*:refs/remotes/origin/*
@@ -554,6 +577,12 @@ $ git checkout origin/pr/42
     fetch = +refs/heads/*:refs/remotes/origin/*
     url = git@github.com:tiimgreen/github-cheat-sheet.git
     fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+```
+
+对基于派生库的Pull Request，可以通过先`checkout`代表此Pull Request的远端分支再由此分支建立一个本地分支：
+
+```bash
+$ git checkout pr/42 pr-42
 ```
 
 [*进一步了解如何检出pull request到本地.*](https://help.github.com/articles/checking-out-pull-requests-locally)

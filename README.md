@@ -484,21 +484,27 @@ In Issues and Pull requests check boxes can be added with the following syntax (
 
 ```
 - [ ] Be awesome
-- [ ] Do stuff
+- [ ] Prepare dinner
+  - [ ] Research recipe
+  - [ ] Buy ingredients
+  - [ ] Cook recipe
 - [ ] Sleep
 ```
 
-![Task List](http://i.imgur.com/k2qZi56.png)
+![Task List](http://i.imgur.com/jJBXhsY.png)
 
 When they are clicked, they will be updated in the pure Markdown:
 
 ```
 - [x] Be awesome
-- [x] Do stuff
+- [ ] Prepare dinner
+  - [x] Research recipe
+  - [x] Buy ingredients
+  - [ ] Cook recipe
 - [ ] Sleep
 ```
 
-[*Read more about task lists.*](https://github.com/blog/1375%0A-task-lists-in-gfm-issues-pulls-comments)
+[*Read more about task lists.*](https://help.github.com/articles/writing-on-github#task-lists)
 
 #### Task Lists in Markdown Documents
 In full Markdown documents **read-only** checklists can now be added using the following syntax:
@@ -507,15 +513,19 @@ In full Markdown documents **read-only** checklists can now be added using the f
 - [ ] Mercury
 - [x] Venus
 - [x] Earth
+  - [x] Moon
 - [x] Mars
-- [ ] Jupiter
+  - [ ] Deimos
+  - [ ] Phobos
 ```
 
 - [ ] Mercury
 - [x] Venus
 - [x] Earth
+  - [x] Moon
 - [x] Mars
-- [ ] Jupiter
+  - [ ] Deimos
+  - [ ] Phobos
 
 [*Read more about task lists in markdown documents.*](https://github.com/blog/1825-task-lists-in-all-markdown-documents)
 
@@ -687,24 +697,22 @@ $ git stripspace < README.md
 [*Read more about the Git `stripspace` command.*](http://git-scm.com/docs/git-stripspace)
 
 ### Checking out Pull Requests
-If you want to check out pull request locally, you can fetch it using that command:
+
+Pull Requests are special branches on the GitHub repository which can be retrieved locally in several ways:
+
+Retrieve a specific Pull Request and store it temporarily in `FETCH_HEAD` for quickly `diff`ing or `merge`ing:
 
 ```bash
-$ git fetch origin '+refs/pull/*/head:refs/pull/*'
+$ git fetch origin refs/pull/[PR-Number]/head
 ```
 
-then, checkout Pull Request (i.e. 42) using
-
-```bash
-$ git checkout refs/pull/42
-```
-
-Alternatively, you can fetch them as remote branches:
+Acquire all Pull Request branches as local remote branches by refspec:
 
 ```bash
 $ git fetch origin '+refs/pull/*/head:refs/remotes/origin/pr/*'
 ```
 
+<<<<<<< HEAD
 and checkout as:
 
 ```bash
@@ -714,6 +722,9 @@ $ git checkout origin/pr/42
 
 and even fetch them automatically, if you add corresponding lines in your .git/config:
 
+=======
+Or setup the remote to fetch Pull Requests automatically by adding these corresponding lines in your repository's `.git/config`:
+>>>>>>> upstream/master
 
 ```
 [remote "origin"]
@@ -726,6 +737,12 @@ and even fetch them automatically, if you add corresponding lines in your .git/c
     fetch = +refs/heads/*:refs/remotes/origin/*
     url = git@github.com:tiimgreen/github-cheat-sheet.git
     fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+```
+
+For Fork-based Pull Request contributions, it's useful to `checkout` a remote branch representing the Pull Request and create a local branch from it:
+
+```bash
+$ git checkout pr/42 pr-42
 ```
 
 [*Read more about checking out pull requests locally.*](https://help.github.com/articles/checking-out-pull-requests-locally)
